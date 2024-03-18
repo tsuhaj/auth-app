@@ -14,11 +14,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ label, className, plac
 				<input
 					type={type ?? "text"}
 					ref={ref}
-					className={`${className} block w-full my-2 rounded-md bg-transparent border border-gray-300 dark:border-gray-800 text-sm px-3 py-2 focus:border-gray-100 focus:outline-none`}
+					className={`${className} block w-full my-2 rounded-md bg-transparent border border-gray-300 dark:border-gray-800 text-sm px-3 py-2  focus:outline-none`}
 					placeholder={placeholder}
 					{...props}
 				/>
-				{error?.length && <p className="text-red-400">{error}</p>}
+				{error?.length && <p className="text-red-700">{error}</p>}
 			</label>
 		</>
 	);

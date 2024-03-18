@@ -1,13 +1,28 @@
 import { addNotification, removeNotification } from "../config/redux/notificationSlice";
 import { useAppDispatch, useAppSelector } from "../config/redux/store";
-import { NotificationType } from "../config/types";
+import { NotificationSeverity, NotificationType } from "../config/types";
+
+const getDefaultNotificationTitle = (severity: NotificationSeverity) => {
+	switch (severity) {
+		case NotificationSeverity.SUCCESS:
+			return "Success";
+		case NotificationSeverity.ERROR:
+			return "Error";
+		case NotificationSeverity.INFO:
+			return "Info";
+	}
+};
 
 const useNotification = () => {
 	const notifications = useAppSelector((state) => state.notification.notifications);
 	const dispatch = useAppDispatch();
 
 	const createNotification = (notificationOptions: NotificationType) => {
-		dispatch(addNotification({ ...notificationOptions, id: Date.now().toString() }));
+		const opts = notificationOptions;
+		if (!opts.id) opts.id = Date.now().toString();
+		if (!opts.title) opts.title = getDefaultNotificationTitle(opts.type);
+
+		dispatch(addNotification(opts));
 	};
 
 	const deleteNotification = (id: string) => {

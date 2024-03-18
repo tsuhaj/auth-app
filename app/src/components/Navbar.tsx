@@ -52,9 +52,9 @@ const Navbar = () => {
 	};
 
 	return (
-		<header className="border-b-gray-800 border-opacity-20 dark:border-opacity-100 border-b py-2">
+		<header className="p-4 bg-white dark:bg-neutral-950">
 			<nav className="max-w-full px-4 flex flex-col md:flex-row justify-between items-start md:items-center">
-				<div className="flex flex-row justify-between items-center gap-6 w-full md:w-auto">
+				<div className="flex flex-row justify-between items-center gap-10 w-full md:w-auto">
 					<Logo className="w-44 h-auto" color={theme == THEME.DARK ? WHITE : BLACK} />
 
 					{menuOpen ? (
@@ -72,14 +72,12 @@ const Navbar = () => {
 					)}
 
 					<div className={`hidden md:block`}>
-						<ul className="text-gray-500 text-sm flex flex-col md:flex-row md:gap-5">
+						<ul className=" dark:text-gray-300 font-medium text-sm flex flex-col md:flex-row md:gap-8">
 							{navigationItems.map((item) => {
 								return (
-									<li className=" hover:text-gray-300">
+									<li className=" hover:text-blue-700">
 										<NavLink
-											className={({ isActive, isPending }) =>
-												isPending ? "pending" : isActive ? "text-black dark:text-white" : ""
-											}
+											className={({ isActive, isPending }) => (isPending ? "pending" : isActive ? "font-bold" : "")}
 											to={item.path}
 										>
 											{item.label}
@@ -101,14 +99,14 @@ const Navbar = () => {
 
 				{menuOpen && (
 					<>
-						<div className="fixed top-[45px] left-0 h-full w-full bg-white dark:bg-black">
-							<ul className="text-gray-500 flex flex-col gap-3 p-6">
+						<div className="absolute top-[80px] left-0 h-full w-full bg-white dark:bg-neutral-950 flex justify-center">
+							<ul className="text-gray-300 font-medium text-xl flex flex-col items-center gap-5 p-6 mt-14">
 								{navigationItems.map((item) => {
 									return (
-										<li className="hover:text-gray-300">
+										<li className="hover:text-blue-700">
 											<NavLink
 												className={({ isActive, isPending }) =>
-													isPending ? "pending" : isActive ? "text-black dark:text-white" : ""
+													isPending ? "pending" : isActive ? "font-bold" : ""
 												}
 												to={item.path}
 											>
@@ -118,7 +116,7 @@ const Navbar = () => {
 									);
 								})}
 
-								<div className="flex flex-col justify-start items-start gap-3">
+								<div className="flex flex-col justify-start items-center gap-5">
 									<DarkModeToggle />
 									<Button variant="primary" label="Login" onClick={redirectToLogin} />
 									<Button variant="secondary" label="Register" onClick={redirectToRegister} />

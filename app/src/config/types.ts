@@ -12,11 +12,12 @@ export interface IUser {
 export enum NotificationSeverity {
 	INFO = "info",
 	ERROR = "error",
+	SUCCESS = "success",
 }
 
 export interface NotificationType {
 	id?: string;
-	title: string;
+	title?: string;
 	text: string;
 	type: NotificationSeverity;
 }

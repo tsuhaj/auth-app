@@ -14,12 +14,13 @@ const Notification: FC<NotificationProps> = ({ id, title, text, type, handleDele
 	}, []);
 
 	const generateNotificationStyleFromType = () => {
-		if (type == NotificationSeverity.INFO) return "bg-neutral-700";
-		else return "bg-red-900";
+		if (type == NotificationSeverity.INFO) return "bg-blue-700";
+		else if (type == NotificationSeverity.SUCCESS) return "bg-green-700";
+		else return "bg-yellow-700";
 	};
 
 	return (
-		<div className={`${generateNotificationStyleFromType()} flex flex-col rounded-md text-gray-400 p-3 gap-2 w-full`}>
+		<div className={`${generateNotificationStyleFromType()} flex flex-col rounded-md text-gray-100 p-3 gap-2 w-full`}>
 			<div className="flex flex-row justify-between">
 				<div className="font-bold">{title}</div>
 				<button className="hover:cursor-pointer bg-neutral-600 p-1 rounded-md" onClick={handleDeleteNotificationClick}>

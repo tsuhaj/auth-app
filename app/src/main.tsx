@@ -30,6 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 						</Route>
 					</Route>
 				</Route>
+				<Route path="/laka" element={<div>cauko</div>} />
 			</Routes>
 		</BrowserRouter>
 	</Provider>

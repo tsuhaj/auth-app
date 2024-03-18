@@ -17,7 +17,7 @@ const Button: FC<ButtonProps> = ({ onClick = () => {}, variant, label, type, ico
 			case "secondary":
 				return "bg-neutral-700 text-white hover:bg-neutral-800";
 			case "destructive":
-				return "bg-red-200";
+				return "bg-red-700";
 			case "outline":
 				return "";
 			default:
