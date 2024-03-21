@@ -53,7 +53,7 @@ const Login: FC = () => {
 					<p className="text-sm text-center text-muted-foreground">
 						Dont have an account ?{" "}
 						<Link to={"/register"} className="text-primary">
-							Register now
+							Registerr now
 						</Link>
 					</p>
 
