@@ -1,3 +1,0 @@
-export enum Z_INDEX {
-	NOTIFICATION_LAYER = 1000,
-}
