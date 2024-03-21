@@ -6,7 +6,7 @@ interface AppThemeSlice {
 }
 
 const initialAppThemeState: AppThemeSlice = {
-	theme: localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as THEME || THEME.LIGHT,
+	theme: (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as THEME) || THEME.SYSTEM,
 };
 
 export const appThemeSlice = createSlice({

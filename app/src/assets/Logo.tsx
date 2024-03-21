@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SvgIconsProps } from "../../config/types";
+import { SvgIconsProps } from "../config/types";
 import { Link } from "react-router-dom";
 
 const Logo: FC<SvgIconsProps> = ({ className, color }) => {

@@ -1,25 +1,24 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../types";
 
+export const LOCAL_STORAGE_USER_KEY = "firebase-user";
+
 export interface AuthSlice {
-	token: string | null;
 	user: IUser | null;
 }
 
 const initialAuthState: AuthSlice = {
-	token: null,
-	user: null,
+	user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER_KEY)) || null,
 };
 
 export const authSlice = createSlice({
 	name: "auth",
 	initialState: initialAuthState,
 	reducers: {
-		login: (state, action: PayloadAction<AuthSlice>) => {
-			state = action.payload;
+		login: (state, action: PayloadAction<IUser>) => {
+			state.user = action.payload;
 		},
 		logout: (state) => {
-			state.token = null;
 			state.user = null;
 		},
 	},

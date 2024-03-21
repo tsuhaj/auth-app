@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { NotificationSeverity, NotificationType } from "../config/types";
-import { IoClose } from "react-icons/io5";
+import { ToastClose } from "./shadcnui/ui/toast";
 
 interface NotificationProps extends NotificationType {
 	handleDeleteNotificationClick: () => void;
@@ -14,21 +14,26 @@ const Notification: FC<NotificationProps> = ({ id, title, text, type, handleDele
 	}, []);
 
 	const generateNotificationStyleFromType = () => {
-		if (type == NotificationSeverity.INFO) return "bg-blue-700";
-		else if (type == NotificationSeverity.SUCCESS) return "bg-green-700";
-		else return "bg-yellow-700";
+		switch (type) {
+			case NotificationSeverity.DEFAULT:
+				return "border bg-background text-foreground";
+			case NotificationSeverity.DESTRUCTIVE:
+				return "destructive group border-destructive bg-destructive text-destructive-foreground";
+			default:
+				return "";
+		}
 	};
 
 	return (
-		<div className={`${generateNotificationStyleFromType()} flex flex-col rounded-md text-gray-100 p-3 gap-2 w-full`}>
-			<div className="flex flex-row justify-between">
-				<div className="font-bold">{title}</div>
-				<button className="hover:cursor-pointer bg-neutral-600 p-1 rounded-md" onClick={handleDeleteNotificationClick}>
-					<IoClose />
-				</button>
+		<div
+			className={`group pointer-events-auto relative flex flex-col gap-2 w-80 items-center justify-between overflow-hidden rounded-md border p-5 shadow-lg ${generateNotificationStyleFromType()}`}
+		>
+			<div className="grid gap-1">
+				<div className="text-sm font-medium">{title}</div>
+				<div className="text-sm opacity-90">{text}</div>
 			</div>
 
-			<div className="text-sm">{text}</div>
+			<ToastClose onClick={handleDeleteNotificationClick} />
 		</div>
 	);
 };

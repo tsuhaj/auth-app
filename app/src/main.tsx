@@ -7,10 +7,11 @@ import TestComponent from "./components/TestComponent.tsx";
 import LayoutLayer from "./components/Layers/LayoutLayer.tsx";
 import { Provider } from "react-redux";
 import store from "./config/redux/store.ts";
-import ProtectedRoute from "./config/routes/ProtectedRoute.tsx";
 import Login from "./components/Pages/Login.tsx";
 import Register from "./components/Pages/Register.tsx";
 import NotificationLayer from "./components/Layers/NotificationLayer.tsx";
+import UnauthenticatedOnly from "./config/routes/UnauthenticatedOnly.tsx";
+import AuthenticatedOnly from "./config/routes/AuthenticatedOnly.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<Provider store={store}>
@@ -21,12 +22,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 						<Route element={<NotificationLayer />}>
 							<Route index element={<App />} />
 
-							<Route element={<ProtectedRoute />}>
+							<Route element={<UnauthenticatedOnly />}>
 								<Route path="/login" element={<Login />} />
 								<Route path="/register" element={<Register />} />
 							</Route>
-
-							<Route path="/test" element={<TestComponent text="Ahoj" />} />
+							<Route element={<AuthenticatedOnly />}>
+								<Route path="/test" element={<TestComponent text="Ahoj" />} />
+							</Route>
 						</Route>
 					</Route>
 				</Route>

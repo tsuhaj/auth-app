@@ -1,24 +1,36 @@
-import { AuthSlice, login, logout } from "../config/redux/authSlice";
+import { IUser } from "@/config/types";
+import { AuthSlice, LOCAL_STORAGE_USER_KEY, login, logout } from "../config/redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../config/redux/store";
-
-const LOCAL_STORAGE_USER_KEY = "firebase_user";
-const LOCAL_STORAGE_TOKEN_KEY = "firebase_token";
+import { useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase";
+import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
 	//user + token
-	const { user, token } = useAppSelector((state) => state.auth);
+	const { user } = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
-    
-	const loginUser = (user: AuthSlice) => {
-        localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, user.token ?? "");
+
+	const loginUser = (user: IUser) => {
 		localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(user));
 		dispatch(login(user));
 	};
 
 	const logoutUser = () => {
-		localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+		signOut(auth);
 		localStorage.removeItem(LOCAL_STORAGE_USER_KEY);
 		dispatch(logout());
+	};
+
+	useEffect(() => {
+		console.log("User state changed, current value: " + JSON.stringify(user));
+	}, [user]);
+
+	return {
+		user,
+		isLoggedIn: user != null,
+		loginUser,
+		logoutUser,
 	};
 };
 

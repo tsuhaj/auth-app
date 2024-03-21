@@ -10,14 +10,13 @@ export interface IUser {
 }
 
 export enum NotificationSeverity {
-	INFO = "info",
-	ERROR = "error",
-	SUCCESS = "success",
+	DEFAULT = "default",
+	DESTRUCTIVE = "destructive",
 }
 
 export interface NotificationType {
 	id?: string;
-	title?: string;
+	title: string;
 	text: string;
 	type: NotificationSeverity;
 }

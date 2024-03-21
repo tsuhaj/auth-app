@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import DarkModeToggle from "./DarkModeToggle";
-import Button from "./Button";
+import DarkModeToggle from "./ThemeToggler";
 import ButtonGroup from "./ButtonGroup";
-import Menu from "../assets/SvgIcons/Menu";
 import { BLACK, WHITE } from "../config/colors";
 import useAppTheme, { THEME } from "../hooks/useAppTheme";
 import useWindowSize from "../hooks/useWindowSize";
-import Close from "../assets/SvgIcons/Close";
-import Logo from "../assets/SvgIcons/Logo";
+import Logo from "../assets/Logo";
+import { Button } from "./shadcnui/ui/button";
+import Icons from "@/assets/Icons";
+import NavbarAccount from "./NavbarAccount";
+import useAuth from "@/hooks/useAuth";
 
 interface NavigationItem {
 	path: string;
@@ -35,6 +36,8 @@ const Navbar = () => {
 
 	console.log(width, height);
 
+	const { isLoggedIn } = useAuth();
+
 	const toggleMenu = () => {
 		setMenuOpen((oldVal) => !oldVal);
 	};
@@ -52,30 +55,22 @@ const Navbar = () => {
 	};
 
 	return (
-		<header className="p-4 bg-white dark:bg-neutral-950">
+		<header className="p-4 border-b">
 			<nav className="max-w-full px-4 flex flex-col md:flex-row justify-between items-start md:items-center">
 				<div className="flex flex-row justify-between items-center gap-10 w-full md:w-auto">
 					<Logo className="w-44 h-auto" color={theme == THEME.DARK ? WHITE : BLACK} />
 
 					{menuOpen ? (
-						<Close
-							color={theme == THEME.DARK ? WHITE : BLACK}
-							className="hover:cursor-pointer inline-block md:hidden"
-							onClick={toggleMenu}
-						/>
+						<Icons.close width={16} height={16} className="hover:cursor-pointer inline-block md:hidden" onClick={toggleMenu} />
 					) : (
-						<Menu
-							color={theme == THEME.DARK ? WHITE : BLACK}
-							className="hover:cursor-pointer inline-block md:hidden"
-							onClick={toggleMenu}
-						/>
+						<Icons.menu width={16} height={16} className="hover:cursor-pointer inline-block md:hidden" onClick={toggleMenu} />
 					)}
 
 					<div className={`hidden md:block`}>
-						<ul className=" dark:text-gray-300 font-medium text-sm flex flex-col md:flex-row md:gap-8">
+						<ul className="text-foreground font-medium text-sm flex flex-col md:flex-row md:gap-8">
 							{navigationItems.map((item) => {
 								return (
-									<li className=" hover:text-blue-700">
+									<li className="hover:text-primary">
 										<NavLink
 											className={({ isActive, isPending }) => (isPending ? "pending" : isActive ? "font-bold" : "")}
 											to={item.path}
@@ -92,18 +87,28 @@ const Navbar = () => {
 				<div className="hidden md:block">
 					<ButtonGroup>
 						<DarkModeToggle />
-						<Button variant="primary" label="Login" onClick={redirectToLogin} />
-						<Button variant="secondary" label="Register" onClick={redirectToRegister} />
+						{isLoggedIn ? (
+							<NavbarAccount />
+						) : (
+							<>
+								<Button variant="default" onClick={redirectToLogin}>
+									Login
+								</Button>
+								<Button variant="secondary" onClick={redirectToRegister}>
+									Register
+								</Button>
+							</>
+						)}
 					</ButtonGroup>
 				</div>
 
 				{menuOpen && (
 					<>
-						<div className="absolute top-[80px] left-0 h-full w-full bg-white dark:bg-neutral-950 flex justify-center">
-							<ul className="text-gray-300 font-medium text-xl flex flex-col items-center gap-5 p-6 mt-14">
+						<div className="absolute top-[80px] left-0 h-full w-full bg-background flex justify-center">
+							<ul className="text-foreground font-medium text-xl flex flex-col items-center gap-5 p-6 mt-14">
 								{navigationItems.map((item) => {
 									return (
-										<li className="hover:text-blue-700">
+										<li className="hover:text-primary">
 											<NavLink
 												className={({ isActive, isPending }) =>
 													isPending ? "pending" : isActive ? "font-bold" : ""
@@ -118,8 +123,18 @@ const Navbar = () => {
 
 								<div className="flex flex-col justify-start items-center gap-5">
 									<DarkModeToggle />
-									<Button variant="primary" label="Login" onClick={redirectToLogin} />
-									<Button variant="secondary" label="Register" onClick={redirectToRegister} />
+									{isLoggedIn ? (
+										<NavbarAccount />
+									) : (
+										<>
+											<Button variant="default" onClick={redirectToLogin}>
+												Login
+											</Button>
+											<Button variant="secondary" onClick={redirectToRegister}>
+												Register
+											</Button>
+										</>
+									)}
 								</div>
 							</ul>
 						</div>

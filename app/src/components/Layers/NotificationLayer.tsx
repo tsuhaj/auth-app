@@ -12,7 +12,7 @@ const NotificationLayer = () => {
 		<>
 			<Outlet />
 
-			<div className="fixed bottom-0 right-0 w-full sm:w-80 overflow-scroll flex flex-col justify-end items-end p-4 gap-4">
+			<div className="fixed bottom-0 right-0 w-full sm:w-96 overflow-scroll flex flex-col justify-end items-end p-4 gap-4">
 				{notifications.map((notification) => {
 					return (
 						<Notification

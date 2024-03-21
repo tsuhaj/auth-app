@@ -1,8 +1,11 @@
+import useAuth from "@/hooks/useAuth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FC, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 const AuthLayer: FC = () => {
+	const { user, loginUser, logoutUser } = useAuth();
+
 	useEffect(() => {
 		console.log("useEffect in AuthLayer");
 
@@ -12,12 +15,12 @@ const AuthLayer: FC = () => {
 				// User is signed in, see docs for a list of available properties
 				// https://firebase.google.com/docs/reference/js/auth.user
 				const uid = user.uid;
-				console.log("user restored:" + JSON.stringify(user));
+				//console.log("user restored:" + JSON.stringify(user));
 				//alert(uid);
 				// ...
+				loginUser({ name: uid.toString(), email: "email" });
 			} else {
-				// User is signed out
-				// ...
+				logoutUser();
 			}
 		});
 
