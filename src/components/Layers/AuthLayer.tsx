@@ -17,7 +17,7 @@ const AuthLayer: FC = () => {
 				const uid = user.uid;
 				//console.log("user restored:" + JSON.stringify(user));
 				//alert(uid);
-				// ...
+
 				loginUser({ name: uid.toString(), email: "email" });
 			} else {
 				logoutUser();
