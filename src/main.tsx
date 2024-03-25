@@ -13,7 +13,7 @@ import UnauthenticatedOnly from "./config/routes/UnauthenticatedOnly.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<Provider store={store}>
-		<BrowserRouter>
+		<BrowserRouter basename="/auth-app/">
 			<Routes>
 				<Route element={<AuthLayer />}>
 					<Route element={<LayoutLayer />}>
