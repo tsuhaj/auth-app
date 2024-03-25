@@ -8,7 +8,7 @@ export interface AuthSlice {
 }
 
 const initialAuthState: AuthSlice = {
-	user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER_KEY)) || null,
+	user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER_KEY) || "null"),
 };
 
 export const authSlice = createSlice({

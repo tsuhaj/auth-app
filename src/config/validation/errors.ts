@@ -1,4 +1,4 @@
-export const firebaseErrors = {
+export const firebaseErrors: Record<string, string> = {
 	"auth/email-already-in-use": "Account with this email already exists",
 };
 

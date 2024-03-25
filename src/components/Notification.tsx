@@ -6,7 +6,7 @@ interface NotificationProps extends NotificationType {
 	handleDeleteNotificationClick: () => void;
 }
 
-const Notification: FC<NotificationProps> = ({ id, title, text, type, handleDeleteNotificationClick }) => {
+const Notification: FC<NotificationProps> = ({ title, text, type, handleDeleteNotificationClick }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			handleDeleteNotificationClick();

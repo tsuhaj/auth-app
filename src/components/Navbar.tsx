@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import DarkModeToggle from "./ThemeToggler";
 import ButtonGroup from "./ButtonGroup";
 import { BLACK, WHITE } from "../config/colors";

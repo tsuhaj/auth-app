@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AUTH_FIELDS, authSchema } from "../../config/validation/AuthValidation";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import WrappedInput from "../WrappedInput";
 import Icons from "../../assets/Icons";
 import Form from "../Form";
 
-type FormData = {
+export type FormData = {
 	email: string;
 	password: string;
 };
@@ -19,9 +19,12 @@ const Login: FC = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FormData>({ resolver: yupResolver(authSchema) });
+	} = useForm<FormData>({ resolver: yupResolver<FormData>(authSchema) });
 
-	const onSubmit = handleSubmit((data: FormData) => console.log(data));
+	const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+		console.log(data);
+		// Add your async logic here
+	};
 
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
@@ -33,15 +36,15 @@ const Login: FC = () => {
 				<WrappedInput
 					label={"Email"}
 					placeholder="email@address.com"
-					error={errors?.[AUTH_FIELDS.EMAIL]?.message as string}
-					{...register(AUTH_FIELDS.EMAIL)}
+					error={(errors && errors[AUTH_FIELDS.EMAIL as keyof typeof errors]?.message) || ""}
+					{...register(AUTH_FIELDS.EMAIL as keyof FormData)}
 				/>
 				<WrappedInput
 					label={"Password"}
 					type="password"
 					placeholder="Password"
-					error={errors?.[AUTH_FIELDS.PASSWORD]?.message as string}
-					{...register(AUTH_FIELDS.PASSWORD)}
+					error={(errors && errors[AUTH_FIELDS.PASSWORD as keyof typeof errors]?.message) || ""}
+					{...register(AUTH_FIELDS.PASSWORD as keyof FormData)}
 				/>
 			</CardContent>
 			<CardFooter>

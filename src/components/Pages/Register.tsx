@@ -1,29 +1,30 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AUTH_FIELDS, authSchema } from "../../config/validation/AuthValidation";
 import { Link } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import useNotification from "../../hooks/useNotification";
 import { NotificationSeverity } from "../../config/types";
-import { app, auth } from "../../config/firebase";
-import { firebaseErrors, getFirebaseError } from "../../config/validation/errors";
+import { auth } from "../../config/firebase";
+import { getFirebaseError } from "../../config/validation/errors";
 import { Button } from "../shadcnui/ui/button";
 import Icons from "@/assets/Icons";
 import { CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../shadcnui/ui/card";
 import WrappedInput from "../WrappedInput";
 import Form from "../Form";
+import { FormData } from "./Login";
 
 const Register: FC = () => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FormData>({ resolver: yupResolver(authSchema) });
+	} = useForm<FormData>({ resolver: yupResolver<FormData>(authSchema) });
 
 	const { createNotification } = useNotification();
 
-	const onSubmit = handleSubmit((data) => {
+	const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
 		createUserWithEmailAndPassword(auth, data.email, data.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
@@ -44,7 +45,7 @@ const Register: FC = () => {
 					type: NotificationSeverity.DESTRUCTIVE,
 				});
 			});
-	});
+	};
 
 	return (
 		<>
@@ -57,15 +58,15 @@ const Register: FC = () => {
 					<WrappedInput
 						label={"Email"}
 						placeholder="email@address.com"
-						error={errors?.[AUTH_FIELDS.EMAIL]?.message as string}
-						{...register(AUTH_FIELDS.EMAIL)}
+						error={(errors && errors[AUTH_FIELDS.EMAIL as keyof typeof errors]?.message) || ""}
+						{...register(AUTH_FIELDS.EMAIL as keyof FormData)}
 					/>
 					<WrappedInput
 						label={"Password"}
 						type="password"
 						placeholder="Password"
-						error={errors?.[AUTH_FIELDS.PASSWORD]?.message as string}
-						{...register(AUTH_FIELDS.PASSWORD)}
+						error={(errors && errors[AUTH_FIELDS.PASSWORD as keyof typeof errors]?.message) || ""}
+						{...register(AUTH_FIELDS.PASSWORD as keyof FormData)}
 					/>
 				</CardContent>
 				<CardFooter>
