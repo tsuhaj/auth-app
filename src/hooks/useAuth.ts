@@ -1,10 +1,9 @@
 import { IUser } from "@/config/types";
-import { AuthSlice, LOCAL_STORAGE_USER_KEY, login, logout } from "../config/redux/authSlice";
+import { LOCAL_STORAGE_USER_KEY, login, logout } from "../config/redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../config/redux/store";
 import { useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
-import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
 	//user + token

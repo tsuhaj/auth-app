@@ -4,7 +4,7 @@ import { FC, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 const AuthLayer: FC = () => {
-	const { user, loginUser, logoutUser } = useAuth();
+	const { loginUser, logoutUser } = useAuth();
 
 	useEffect(() => {
 		console.log("useEffect in AuthLayer");

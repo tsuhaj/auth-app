@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../config/redux/store";
 import { changeTheme } from "../config/redux/appThemeSlice";
 

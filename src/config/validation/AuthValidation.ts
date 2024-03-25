@@ -7,7 +7,7 @@ export const AUTH_FIELDS = {
 
 export const authSchema = yup
 	.object({
-		[AUTH_FIELDS.EMAIL]: yup.string().email().required(),
-		[AUTH_FIELDS.PASSWORD]: yup.string().min(8).required(),
+		email: yup.string().email().required(),
+		password: yup.string().min(8).required(),
 	})
 	.required();

@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
 import useNotification from "../../hooks/useNotification";
-import { Z_INDEX } from "../../config/contants";
 import Notification from "../Notification";
-import { NotificationSeverity } from "../../config/types";
 
 const NotificationLayer = () => {
 	const { notifications, deleteNotification } = useNotification();

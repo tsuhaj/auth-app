@@ -13,7 +13,7 @@ const WrappedInput = forwardRef<HTMLInputElement, WrappedInputProps>(({ label, e
 		<div className="flex flex-col gap-2">
 			<Label htmlFor={name}>{label}</Label>
 			<Input ref={ref} {...props} name={name} />
-			{error?.length && <p className="text-red-700 text-sm">{error}</p>}
+			{error && <p className="text-red-700 text-sm">{error}</p>}
 		</div>
 	);
 });
